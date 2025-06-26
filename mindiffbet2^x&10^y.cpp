@@ -4,7 +4,7 @@ using namespace std;
 double percent_difference(double derived, double actual)
 {
     double diff = abs(derived - actual);
-    double percent_diff = diff / actual * 100;
+    double percent_diff = diff / actual * 100;                                       
 
     return percent_diff;
 }
