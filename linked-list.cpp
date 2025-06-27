@@ -1,64 +1,101 @@
-// add a node to linked list 
-// node can do compile time and run time both memory alocation
-#include <iostream>
+#include <bits/stdc++.h>
 using namespace std;
 
 // Node class
-class Node {
+class Node{
 public:
     int data;
     Node* next;
 
-    // Constructor
-    Node(int value) {
-        data = value;
+    // constructor
+    Node(int val){
+        data = val;
         next = nullptr;
     }
 };
 
-// Linked List class
-class LinkedList {
+class LinkedList{
+    Node* Head;
+    Node* Tail;
+
 public:
-    Node* head;
-
-    LinkedList() {
-        head = nullptr;
+    LinkedList(){
+        Head = Tail = nullptr;
     }
 
-    // Add a node at the end
-    void addNode(int value) {
-        Node* newNode = new Node(value);
-        if (head == nullptr) {  =
-            head = newNode;  // First node becomes head
-        } else {
-            Node* temp = head;
-            while (temp->next != nullptr) {
-                temp = temp->next;  // Go to last node
-            }
-            temp->next = newNode;  // Link new node at the end
+    void insertAtHead(int val){
+        Node* node1 = new Node(val); 
+        if(Head == nullptr){
+            Head = Tail = node1;
+            return;
+        } else{
+            node1->next = Head;
+            Head = node1;
         }
+    
     }
 
-    // Display the list
-    void display() {
-        Node* temp = head;
-        while (temp != nullptr) {
+    void printList(){
+        Node* temp = Head;
+        while(temp != nullptr){
             cout << temp->data << " -> ";
             temp = temp->next;
         }
         cout << "NULL" << endl;
     }
+
+    void insertAtLast(int val){
+        Node* node1 = new Node(val);
+        if(Head == nullptr){
+            Head = Tail = node1;
+            return;
+        }
+        Tail->next = node1;
+        Tail = node1;
+    }
+
+void deleteNode(int val) {
+    if (Head == nullptr) {
+        cout << "Empty Linked list!!" << endl;
+        return;
+    }
+
+    // Case 1: The head node itself needs to be deleted
+    if (Head->data == val) {
+        Node* temp = Head;
+        Head = Head->next;
+        delete temp;
+        return;
+    }
+
+    Node* current = Head;
+    while (current->next != nullptr && current->next->data != val) {
+        current = current->next;
+    }
+
+    // If not found
+    if (current->next == nullptr) {
+        cout << "Value not found!" << endl;
+        return;
+    }
+
+    // Found node to delete
+    Node* temp = current->next;
+    current->next = temp->next;
+    delete temp;
+}
 };
 
-int main() {
-    LinkedList list;
+int main(){
+    LinkedList LL;
 
-    list.addNode(10);
-    list.addNode(20);
-    list.addNode(30);
-
-    cout << "Linked List: ";
-    list.display();
-
-    return 0;
+    LL.insertAtHead(3);
+    LL.insertAtHead(5);    
+    LL.insertAtHead(7);    
+    LL.insertAtHead(4);
+    LL.printList();
+    LL.insertAtLast(9);
+    LL.printList();
+    LL.deleteNode(5);
+    LL.printList();
 }
