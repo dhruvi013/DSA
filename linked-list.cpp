@@ -60,7 +60,7 @@ void deleteNode(int val) {
         return;
     }
 
-    // Case 1: The head node itself needs to be deleted
+    // Case 1: The head node itself needs to be delete
     if (Head->data == val) {
         Node* temp = Head;
         Head = Head->next;
